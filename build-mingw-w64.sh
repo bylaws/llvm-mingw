@@ -18,7 +18,6 @@ set -e
 
 : ${DEFAULT_WIN32_WINNT:=0x601}
 : ${DEFAULT_MSVCRT:=ucrt}
-: ${MINGW_W64_VERSION:=7ea930ba381ace6f19f7cfa59596f6fe49949aa6}
 
 CFGUARD_FLAGS="--enable-cfguard"
 
@@ -56,7 +55,7 @@ if [ -z "$CHECKOUT_ONLY" ]; then
 fi
 
 if [ ! -d mingw-w64 ]; then
-    git clone https://github.com/mingw-w64/mingw-w64
+    git clone https://github.com/bylaws/mingw-w64
     CHECKOUT=1
 fi
 
@@ -64,7 +63,7 @@ cd mingw-w64
 
 if [ -n "$SYNC" ] || [ -n "$CHECKOUT" ]; then
     [ -z "$SYNC" ] || git fetch
-    git checkout $MINGW_W64_VERSION
+    git checkout arm64ec
 fi
 
 [ -z "$CHECKOUT_ONLY" ] || exit 0
@@ -122,6 +121,9 @@ for arch in $ARCHS; do
         FLAGS="--disable-lib32 --disable-lib64 --enable-libarm32"
         ;;
     aarch64)
+        FLAGS="--disable-lib32 --disable-lib64 --enable-libarm64"
+        ;;
+    arm64ec)
         FLAGS="--disable-lib32 --disable-lib64 --enable-libarm64"
         ;;
     i686)

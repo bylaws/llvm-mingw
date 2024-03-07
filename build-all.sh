@@ -18,9 +18,9 @@ set -e
 
 LLVM_ARGS=""
 MINGW_ARGS=""
-CFGUARD_ARGS="--enable-cfguard"
+export CFGUARD_ARGS="--disable-cfguard"
 HOST_ARGS=""
-
+export TOOLCHAIN_ARCHS=arm64ec
 while [ $# -gt 0 ]; do
     case "$1" in
     --enable-asserts)
@@ -116,4 +116,4 @@ fi
 ./build-libcxx.sh $PREFIX $CFGUARD_ARGS
 ./build-mingw-w64-libraries.sh $PREFIX $CFGUARD_ARGS
 ./build-compiler-rt.sh $PREFIX --build-sanitizers # CFGUARD_ARGS intentionally omitted
-./build-openmp.sh $PREFIX $CFGUARD_ARGS
+#./build-openmp.sh $PREFIX $CFGUARD_ARGS

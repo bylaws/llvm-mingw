@@ -58,7 +58,7 @@ for lib in winpthreads winstorecompat; do
         mkdir -p build-$arch
         cd build-$arch
         arch_prefix="$PREFIX/$arch-w64-mingw32"
-        ../configure --host=$arch-w64-mingw32 --prefix="$arch_prefix" --libdir="$arch_prefix/lib" \
+        ../configure --host=$arch-w64-mingw32 --enable-static --disable-shared --prefix="$arch_prefix" --libdir="$arch_prefix/lib" \
             CFLAGS="$USE_CFLAGS" \
             CXXFLAGS="$USE_CFLAGS"
         make -j$CORES

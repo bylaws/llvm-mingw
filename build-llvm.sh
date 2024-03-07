@@ -86,12 +86,13 @@ if [ ! -d llvm-project ]; then
     mkdir llvm-project
     cd llvm-project
     git init
-    git remote add origin https://github.com/llvm/llvm-project.git
+    git remote add origin https://github.com/bylaws/llvm-project.git
     cd ..
     CHECKOUT=1
 fi
 
 if [ -n "$SYNC" ] || [ -n "$CHECKOUT" ]; then
+    LLVM_VERSION=arm64ec
     cd llvm-project
     # Check if the intended commit or tag exists in the local repo. If it
     # exists, just check it out instead of trying to fetch it.
@@ -311,7 +312,7 @@ cmake \
     -DLLVM_TARGETS_TO_BUILD="ARM;AArch64;X86;NVPTX" \
     -DLLVM_INSTALL_TOOLCHAIN_ONLY=$TOOLCHAIN_ONLY \
     -DLLVM_LINK_LLVM_DYLIB=$LINK_DYLIB \
-    -DLLVM_TOOLCHAIN_TOOLS="llvm-ar;llvm-ranlib;llvm-objdump;llvm-rc;llvm-cvtres;llvm-nm;llvm-strings;llvm-readobj;llvm-dlltool;llvm-pdbutil;llvm-objcopy;llvm-strip;llvm-cov;llvm-profdata;llvm-addr2line;llvm-symbolizer;llvm-windres;llvm-ml;llvm-readelf;llvm-size;llvm-cxxfilt" \
+    -DLLVM_TOOLCHAIN_TOOLS="llvm-ar;llvm-lib;llvm-ranlib;llvm-objdump;llvm-rc;llvm-cvtres;llvm-nm;llvm-strings;llvm-readobj;llvm-dlltool;llvm-pdbutil;llvm-objcopy;llvm-strip;llvm-cov;llvm-profdata;llvm-addr2line;llvm-symbolizer;llvm-windres;llvm-ml;llvm-readelf;llvm-size;llvm-cxxfilt" \
     ${HOST+-DLLVM_HOST_TRIPLE=$HOST} \
     $CMAKEFLAGS \
     ..
