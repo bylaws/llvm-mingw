@@ -90,7 +90,7 @@ for dep in git cmake; do
 done
 
 if [ -z "$NO_TOOLS" ]; then
-#    ./build-llvm.sh $PREFIX $LLVM_ARGS $HOST_ARGS
+    ./build-llvm.sh $PREFIX $LLVM_ARGS $HOST_ARGS
 #    if [ -z "$NO_LLDB" ] && [ -z "$NO_LLDB_MI" ]; then
 #        ./build-lldb-mi.sh $PREFIX $HOST_ARGS
 #    fi
