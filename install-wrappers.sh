@@ -145,3 +145,8 @@ if [ -n "$EXEEXT" ]; then
         ;;
     esac
 fi
+
+ln -sf llvm-strip strip
+ln -sf llvm-objcopy objcopy
+ln -sf ar-wrapper.sh ar
+ln -sf llvm-ranlib ranlib
