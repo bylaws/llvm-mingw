@@ -145,3 +145,6 @@ if [ -n "$EXEEXT" ]; then
         ;;
     esac
 fi
+
+ln -s llvm-strip strip
+ln -s llvm-objcopy objcopy
