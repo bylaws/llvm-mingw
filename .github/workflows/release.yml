@@ -48,7 +48,9 @@ jobs:
       - name: Rearrange files
         run: |
           rm -rf linux-asserts*
-          mv *-toolchain/*.zip *-toolchain/*.tar.xz .
+          mv *-toolchain/* .
+          unzip *.zip || true
+          find .
       - name: Set environment
         run: |
           cat parameters/parameters.txt >> $GITHUB_ENV
@@ -65,7 +67,7 @@ jobs:
           fi
           cd repo
           git config --global user.name "GitHub Actions"
-          git config --global user.email martin@martin.st
+          git config --global user.email blaws05@gmail.com
           git tag -a ${{inputs.tag}} -m "${{inputs.title}}"
           # If the commit isn't the tip of a branch, and there are
           # differences in workflow files compared with the tip of the
@@ -83,7 +85,7 @@ jobs:
               prerelease="--prerelease"
           fi
           if ${{inputs.create_release}}; then
-              gh release create ${{inputs.tag}} --verify-tag $prerelease --title "${{inputs.title}}" --notes "" *.tar.xz *.zip -R ${{github.repository}}
+              gh release create ${{inputs.tag}} $prerelease --title "${{inputs.title}}" --notes "" *.tar.xz -R ${{github.repository}}
           else
-              gh release upload ${{inputs.tag}} *.tar.xz *.zip --clobber -R ${{github.repository}}
+              gh release upload ${{inputs.tag}} *.tar.xz --clobber -R ${{github.repository}}
           fi
