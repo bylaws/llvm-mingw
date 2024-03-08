@@ -20,7 +20,7 @@ LLVM_ARGS=""
 MINGW_ARGS=""
 export CFGUARD_ARGS="--disable-cfguard"
 HOST_ARGS=""
-export TOOLCHAIN_ARCHS=arm64ec
+export TOOLCHAIN_ARCHS="arm64ec aarch64 x86_64 i686"
 while [ $# -gt 0 ]; do
     case "$1" in
     --enable-asserts)
@@ -91,12 +91,12 @@ done
 
 if [ -z "$NO_TOOLS" ]; then
     ./build-llvm.sh $PREFIX $LLVM_ARGS $HOST_ARGS
-    if [ -z "$NO_LLDB" ] && [ -z "$NO_LLDB_MI" ]; then
-        ./build-lldb-mi.sh $PREFIX $HOST_ARGS
-    fi
-    if [ -z "$FULL_LLVM" ]; then
-        ./strip-llvm.sh $PREFIX $HOST_ARGS
-    fi
+#    if [ -z "$NO_LLDB" ] && [ -z "$NO_LLDB_MI" ]; then
+#        ./build-lldb-mi.sh $PREFIX $HOST_ARGS
+#    fi
+#    if [ -z "$FULL_LLVM" ]; then
+#        ./strip-llvm.sh $PREFIX $HOST_ARGS
+#    fi
     ./install-wrappers.sh $PREFIX $HOST_ARGS
     ./build-mingw-w64-tools.sh $PREFIX $HOST_ARGS
 fi
