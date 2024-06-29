@@ -20,7 +20,7 @@ LLVM_ARGS=""
 MINGW_ARGS=""
 export CFGUARD_ARGS="--disable-cfguard"
 HOST_ARGS=""
-export TOOLCHAIN_ARCHS="arm64ec x86_64 i686"
+export TOOLCHAIN_ARCHS="arm64ec aarch64 x86_64 i686"
 while [ $# -gt 0 ]; do
     case "$1" in
     --enable-asserts)
