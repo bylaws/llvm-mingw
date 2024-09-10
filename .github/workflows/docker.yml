@@ -59,8 +59,8 @@ jobs:
           push: ${{inputs.push}}
           file: ./Dockerfile.dev
           tags: |
-            mstorsjo/llvm-mingw:dev
-            mstorsjo/llvm-mingw:dev-${{needs.prepare.outputs.TAG}}
+            bylaws/llvm-mingw:dev
+            bylaws/llvm-mingw:dev-${{needs.prepare.outputs.TAG}}
       - name: Inspect Docker images
         run: |
           docker images
@@ -110,7 +110,7 @@ jobs:
           push: ${{inputs.push}}
           file: ./${{matrix.file}}
           outputs: |
-            type=image,name=mstorsjo/llvm-mingw,push-by-digest=true,name-canonical=true
+            type=image,name=bylaws/llvm-mingw,push-by-digest=true,name-canonical=true
       - name: Write outputs for later steps
         uses: cloudposse/github-action-matrix-outputs-write@main
         id: out
@@ -140,5 +140,5 @@ jobs:
         run: |
           set -x
           for tag in latest ${{needs.prepare.outputs.TAG}}; do
-              docker buildx imagetools create -t mstorsjo/llvm-mingw:$tag mstorsjo/llvm-mingw@${{fromJson(steps.read.outputs.result).digest.amd64}} mstorsjo/llvm-mingw@${{fromJson(steps.read.outputs.result).digest.arm64}}
+              docker buildx imagetools create -t bylaws/llvm-mingw:$tag bylaws/llvm-mingw@${{fromJson(steps.read.outputs.result).digest.amd64}} bylaws/llvm-mingw@${{fromJson(steps.read.outputs.result).digest.arm64}}
           done

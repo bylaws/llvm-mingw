@@ -42,7 +42,7 @@ fi
 mkdir -p "$PREFIX"
 PREFIX="$(cd "$PREFIX" && pwd)"
 
-: ${ARCHS:=${TOOLCHAIN_ARCHS-i686 x86_64 armv7 aarch64}}
+: ${ARCHS:=${TOOLCHAIN_ARCHS-i686 x86_64 armv7 aarch64 arm64ec}}
 : ${TARGET_OSES:=${TOOLCHAIN_TARGET_OSES-mingw32 mingw32uwp}}
 
 if [ -n "$HOST" ] && [ -z "$CC" ]; then
@@ -148,7 +148,7 @@ for arch in $ARCHS; do
             ln -sf clang-target-wrapper$CTW_SUFFIX $arch-w64-$target_os-$exec$CTW_LINK_SUFFIX
         done
         ln -sf clang-scan-deps-wrapper$CTW_SUFFIX $arch-w64-$target_os-clang-scan-deps$CTW_LINK_SUFFIX
-        for exec in addr2line ar ranlib nm objcopy readelf size strings strip llvm-ar llvm-ranlib; do
+        for exec in addr2line ranlib nm objcopy readelf size strings strip llvm-ranlib; do
             if [ -n "$EXEEXT" ]; then
                 link_target=llvm-wrapper
             else
@@ -167,8 +167,9 @@ for arch in $ARCHS; do
         # target arch prefix.
         ln -sf llvm-windres$EXEEXT $arch-w64-$target_os-windres$EXEEXT
         ln -sf llvm-dlltool$EXEEXT $arch-w64-$target_os-dlltool$EXEEXT
-        for exec in ld objdump; do
-            ln -sf $exec-wrapper.sh $arch-w64-$target_os-$exec
+        for exec in objdump ar; do
+            ln -sf $exec-wrapper.sh $arch-w64-$target_os-$exec$EXEEXT
+            ln -sf $exec-wrapper.sh $exec$EXEEXT
         done
     done
 done
