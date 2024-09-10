@@ -18,7 +18,7 @@ set -e
 
 : ${DEFAULT_WIN32_WINNT:=0x601}
 : ${DEFAULT_MSVCRT:=ucrt}
-: ${MINGW_W64_VERSION:=d96d77563d1ecc76e77d86d3602ab62702bf1875}
+: ${MINGW_W64_VERSION:=08082024}
 
 CFGUARD_FLAGS="--enable-cfguard"
 
@@ -56,7 +56,7 @@ if [ -z "$CHECKOUT_ONLY" ]; then
 fi
 
 if [ ! -d mingw-w64 ]; then
-    git clone https://github.com/mingw-w64/mingw-w64
+    git clone https://github.com/bylaws/mingw-w64
     CHECKOUT=1
 fi
 
@@ -87,7 +87,7 @@ unset CC
 : ${CORES:=$(nproc 2>/dev/null)}
 : ${CORES:=$(sysctl -n hw.ncpu 2>/dev/null)}
 : ${CORES:=4}
-: ${ARCHS:=${TOOLCHAIN_ARCHS-i686 x86_64 armv7 aarch64}}
+: ${ARCHS:=${TOOLCHAIN_ARCHS-i686 x86_64 armv7 aarch64 arm64ec}}
 
 if [ -z "$SKIP_INCLUDE_TRIPLET_PREFIX" ]; then
     HEADER_ROOT="$PREFIX/generic-w64-mingw32"
@@ -122,6 +122,9 @@ for arch in $ARCHS; do
         FLAGS="--disable-lib32 --disable-lib64 --enable-libarm32"
         ;;
     aarch64)
+        FLAGS="--disable-lib32 --disable-lib64 --enable-libarm64"
+        ;;
+    arm64ec)
         FLAGS="--disable-lib32 --disable-lib64 --enable-libarm64"
         ;;
     i686)
