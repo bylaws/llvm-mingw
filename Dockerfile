@@ -1,9 +1,9 @@
-FROM ubuntu:22.04
+FROM debian:trixie
 
 RUN apt-get update -qq && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -qqy --no-install-recommends \
     git wget bzip2 file unzip libtool pkg-config cmake build-essential \
-    automake yasm gettext autopoint vim-tiny python3 python3-distutils \
+    automake yasm gettext autopoint vim-tiny python3 \
     ninja-build ca-certificates curl less zip && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
@@ -16,11 +16,11 @@ WORKDIR /build
 
 ENV TOOLCHAIN_PREFIX=/opt/llvm-mingw
 
-ARG TOOLCHAIN_ARCHS="i686 x86_64 armv7 aarch64"
+ARG TOOLCHAIN_ARCHS="i686 x86_64 armv7 aarch64 arm64ec"
 
-ARG DEFAULT_CRT=ucrt
+ARG DEFAULT_CRT=msvcrt
 
-ARG CFGUARD_ARGS=--enable-cfguard
+ARG CFGUARD_ARGS=--disable-cfguard
 
 # Build everything that uses the llvm monorepo. We need to build the mingw runtime before the compiler-rt/libunwind/libcxxabi/libcxx runtimes.
 COPY build-llvm.sh build-lldb-mi.sh strip-llvm.sh install-wrappers.sh build-mingw-w64.sh build-mingw-w64-tools.sh build-compiler-rt.sh build-libcxx.sh build-mingw-w64-libraries.sh build-openmp.sh ./
