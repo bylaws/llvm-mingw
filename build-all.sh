@@ -19,7 +19,7 @@ set -e
 HOST_CLANG=
 LLVM_ARGS=""
 MINGW_ARGS=""
-CFGUARD_ARGS="--enable-cfguard"
+CFGUARD_ARGS="--disable-cfguard"
 HOST_ARGS=""
 
 while [ $# -gt 0 ]; do
