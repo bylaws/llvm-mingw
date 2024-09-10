@@ -18,7 +18,7 @@ ENV TOOLCHAIN_PREFIX=/opt/llvm-mingw
 
 ARG TOOLCHAIN_ARCHS="i686 x86_64 armv7 aarch64 arm64ec"
 
-ARG DEFAULT_CRT=msvcrt
+ARG DEFAULT_CRT=ucrt
 
 ARG CFGUARD_ARGS=--disable-cfguard
 
