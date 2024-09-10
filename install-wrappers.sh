@@ -42,7 +42,7 @@ fi
 mkdir -p "$PREFIX"
 PREFIX="$(cd "$PREFIX" && pwd)"
 
-: ${ARCHS:=${TOOLCHAIN_ARCHS-i686 x86_64 armv7 aarch64}}
+: ${ARCHS:=${TOOLCHAIN_ARCHS-i686 x86_64 armv7 aarch64 arm64ec}}
 : ${TARGET_OSES:=${TOOLCHAIN_TARGET_OSES-mingw32 mingw32uwp}}
 
 if [ -n "$HOST" ] && [ -z "$CC" ]; then
@@ -167,8 +167,9 @@ for arch in $ARCHS; do
         # target arch prefix.
         ln -sf llvm-windres$EXEEXT $arch-w64-$target_os-windres$EXEEXT
         ln -sf llvm-dlltool$EXEEXT $arch-w64-$target_os-dlltool$EXEEXT
-        for exec in ld objdump; do
+        for exec in objdump ar; do
             ln -sf $exec-wrapper.sh $arch-w64-$target_os-$exec
+            ln -sf $exec-wrapper.sh $exec
         done
     done
 done

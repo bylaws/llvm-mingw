@@ -294,6 +294,7 @@ jobs:
           - { arch: x86_64, crt: ucrt }
           - { arch: armv7, crt: ucrt }
           - { arch: aarch64, crt: ucrt }
+          - { arch: arm64ec, crt: ucrt }
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -590,6 +591,7 @@ jobs:
           - x86_64
           - armv7
           - aarch64
+          - arm64ec
     steps:
       - uses: actions/download-artifact@v4
         with:
